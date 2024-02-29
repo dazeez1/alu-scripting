@@ -1,16 +1,19 @@
 #!/usr/bin/python3
-"""0-subs.py"""
-
+""""Doc"""
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """Reddit subscribers"""
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    headers = {"User-Agent": "My-User-Agent"}
+    """"Doc"""
+    url = "https://www.reddit.com/r/{}/about.json" \
+        .format(subreddit)
 
-    response = requests.get(url, headers=headers, allow_redirects=False)
-    if response.status_code != 200:
+    res = requests.get(url,
+                       headers={
+                           'User-Agent': 'Mozilla/5.0'})
+
+    if res.status_code != 200:
         return 0
     else:
-        return response.json().get("data").get("subscribers")
+        json_response = res.json()
+        return json_response.get('data').get('subscribers')
